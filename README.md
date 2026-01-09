@@ -209,7 +209,6 @@ computer graphics and animation techniques.
 
 <p align="center">
 <strong>x606</strong><br>
-Computer Graphics & Security Enthusiast
 </p>
 
 ---
