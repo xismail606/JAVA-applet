@@ -1,137 +1,223 @@
-Car Animation – Java Applet Project
-1. Overview
+<!-- ===================== HEADER ===================== -->
+<div align="center">
+  <img 
+    src="https://capsule-render.vercel.app/api?type=waving&color=gradient&text=Car%20Animation&height=140&section=header"
+    alt="Car Animation Header"
+    width="100%"
+  />
+</div>
 
-This project implements a dynamic and interactive 2D car animation using the Java Applet framework. It demonstrates essential Computer Graphics and Operating System–level concepts, including:
+---
 
-Affine Transformations (translation, rotation, scaling)
+<!-- ===================== TITLE ===================== -->
+<h1 align="center"> 🚗 Car Animation – Java Applet Project </h1>
 
-Double Buffering for flicker-free rendering
+<p align="center">
+A dynamic and interactive <strong>2D Car Animation</strong> built using the <strong>Java Applet</strong> framework.<br>
+The project demonstrates core concepts of <strong>Computer Graphics</strong> and <strong>Operating Systems</strong>.
+</p>
 
-Multithreading for smooth animation loops
+---
 
-Event-driven GUI interaction
+<!-- ===================== OVERVIEW ===================== -->
+<h2 align="center"> 📌 Overview </h2>
 
-A dedicated Control Panel allows real-time manipulation of the animation parameters, making the project both educational and interactive.
+<p align="center">
+This project implements a real-time animated car simulation using classic Java AWT and Applet technologies.
+It focuses on rendering quality, smooth animation, and user interaction.
+</p>
 
-2. System Architecture
+<pre><strong>
+core_concepts:
+  - Affine Transformations
+  - Double Buffering
+  - Multithreading
+  - Event-Driven GUI
+purpose:
+  - Educational
+  - Computer Graphics Demonstration
+  - Legacy Java Applet Example
+</strong></pre>
 
-The application follows a clear separation of concerns and is organized into the following components:
+---
 
-2.1 Core Classes
+<!-- ===================== ARCHITECTURE ===================== -->
+<h2 align="center"> 🏗️ System Architecture </h2>
 
-CarAnimation.java (View & Controller)
+<p align="center">
+The application follows a clear separation of concerns with modular components.
+</p>
 
-Extends Applet
+<h3>2.1 Core Classes</h3>
 
-Manages rendering, animation logic, and painting
+<pre><strong>
+CarAnimation.java
+  - Extends Applet
+  - Handles rendering & animation logic
+  - Implements Runnable (multithreading)
+  - Manages event listeners
 
-Implements Runnable for threading
+ControlPanel.java
+  - Extends Panel
+  - Contains UI controls (buttons, sliders, checkboxes)
+  - Provides real-time animation control
+</strong></pre>
 
-Handles user interaction via multiple event listeners
+<h3>2.2 Supporting Files</h3>
 
-ControlPanel.java (User Interface)
+<pre><strong>
+index.html
+  - Entry point for loading the applet
 
-Extends Panel
+run.bat
+  - Windows automation script
+  - Sets UTF-8 code page (65001)
+  - Displays ASCII art branding (APPLET, 606)
+  - Compiles & launches using appletviewer
+</strong></pre>
 
-Contains all UI elements such as buttons, scrollbars, checkboxes, and dropdowns
+---
 
-Provides real-time control over animation behavior
+<!-- ===================== GRAPHICS ===================== -->
+<h2 align="center"> 🎨 Graphics & Rendering </h2>
 
-2.2 Supporting Files
+<p align="center">
+Rendering is handled using <code>Graphics2D</code> for advanced visual quality.
+</p>
 
-index.html – Entry point for loading the applet
+<ul>
+  <li>Anti-aliasing via <code>RenderingHints</code></li>
+  <li><code>GradientPaint</code> for sky, sun, and car body shading</li>
+  <li>Complex shapes:
+    <ul>
+      <li><code>RoundRectangle2D</code> – Car body</li>
+      <li><code>Polygon</code> – Windows</li>
+      <li><code>Ellipse2D</code> – Wheels & lights</li>
+    </ul>
+  </li>
+</ul>
 
-run.bat – Windows batch script to compile and launch the project
+---
 
-Includes UTF-8 code page setup
+<!-- ===================== TRANSFORMATIONS ===================== -->
+<h2 align="center"> 🔄 Geometric Transformations </h2>
 
-Displays custom ASCII art branding (APPLET, 606)
+<p align="center">
+The animation relies heavily on <code>AffineTransform</code>.
+</p>
 
-Automates compilation and execution using appletviewer
+<pre><strong>
+Wheel Rotation:
+  wheelRotation += speed * WHEEL_ROTATION_MULTIPLIER * direction
 
-3. Technical Implementation
-3.1 Graphics Rendering
+Sun Rotation:
+  g2d.rotate(angle, centerX, centerY)
 
-The project uses Graphics2D to enable advanced rendering features:
+Car Scaling & Direction:
+  g2d.scale(carScale * direction, carScale)
+</strong></pre>
 
-Anti-aliasing via RenderingHints for smooth edges
+These transformations provide realism and dynamic behavior.
 
-GradientPaint for realistic sky, sun, and car body shading
+---
 
-Complex geometric shapes, including:
+<!-- ===================== ANIMATION ===================== -->
+<h2 align="center"> ⚙️ Animation Engine </h2>
 
-RoundRectangle2D for the car body
+<ul>
+  <li><strong>Dedicated Animation Thread</strong> for smooth updates</li>
+  <li><strong>Double Buffering</strong> using off-screen rendering</li>
+  <li>Prevents flickering common in AWT applications</li>
+</ul>
 
-Polygon for windows
+---
 
-Ellipse2D for wheels and lights
+<!-- ===================== UI ===================== -->
+<h2 align="center"> 🎛️ Control Panel </h2>
 
-3.2 Geometric Transformations
+<p align="center">
+A dedicated control panel enables real-time interaction.
+</p>
 
-Animation behavior relies heavily on AffineTransform:
+<pre><strong>
+Controls:
+  - Start / Stop / Reset animation
+  - Dynamic car color selection
+  - Reverse direction toggle
+  - Car scale control (1.0 – 2.5)
+  - Speed slider (1 – 21)
+</strong></pre>
 
-Wheel Rotation
-Simulates realistic rolling using speed-based angular increments:
+---
 
-wheelRotation += speed * WHEEL_ROTATION_MULTIPLIER * direction;
+<!-- ===================== SCENE ===================== -->
+<h2 align="center"> 🌄 Scene Composition </h2>
 
+<p align="center">
+The scene is rendered in layered order to maintain depth.
+</p>
 
-Sun Rotation
-Rotates around its center using g2d.rotate() to add background dynamics
+<pre><strong>
+Rendering Layers:
+  1. Background – Sky gradient & rotating sun
+  2. Far Ground – Clouds & distant trees
+  3. Mid Ground – Trees & grass
+  4. Foreground – Road, guardrails & animated car
+</strong></pre>
 
-Car Scaling & Direction
-Achieved by scaling the graphics context:
+---
 
-g2d.scale(carScale * direction, carScale);
+<!-- ===================== RUN ===================== -->
+<h2 align="center"> ▶️ How To Run </h2>
 
-3.3 Animation Engine
+<p align="center">
+This project is intended for <strong>Windows</strong> and legacy Java environments.
+</p>
 
-Dedicated Animation Thread
-Continuously updates object positions and triggers repaints
+<pre><strong>
+1. Run run.bat
+2. Script sets UTF-8 code page
+3. Compiles all .java files
+4. Launches appletviewer with index.html
+</strong></pre>
 
-Double Buffering
-The update() method renders all graphics to an off-screen image before drawing it to the screen, eliminating flicker common in AWT applications
+<p align="center">
+⚠️ <strong>Note:</strong> Java Applets are deprecated in modern browsers.<br>
+This project is for educational and legacy use only.
+</p>
 
-4. User Interface – Control Panel
+---
 
-The control panel is divided into logical sections for ease of use:
+<!-- ===================== CONCLUSION ===================== -->
+<h2 align="center"> 🧠 Conclusion </h2>
 
-Section	Component	Functionality
-Top	Start / Stop / Reset	Controls animation execution
-Top	Color Selector	Dynamically changes the car body color
-Middle	Reverse Checkbox	Toggles the car direction
-Middle	Scale Input	Resizes the car (range: 1.0 – 2.5)
-Bottom	Speed Slider	Adjusts animation speed (values: 1–21)
-5. Scene Composition
+<p align="center">
+The Car Animation project demonstrates how mathematical transformations,
+multithreading, and object-oriented design can be combined to create
+a smooth and interactive graphical simulation.
+</p>
 
-The visual scene is rendered in layered order to preserve depth and perspective:
+<p align="center">
+It serves as a strong educational example of classic Java-based
+computer graphics and animation techniques.
+</p>
 
-Background – Sky gradient and rotating sun
+---
 
-Far Ground – Moving clouds and distant tree zone
+<!-- ===================== AUTHOR ===================== -->
+<h2 align="center"> 👤 Author </h2>
 
-Mid Ground – Trees and grass details
+<p align="center">
+<strong>x606</strong><br>
+Computer Graphics & Security Enthusiast
+</p>
 
-Foreground – Road, guardrails, and animated car
+---
 
-6. How to Run
-
-To execute the project on Windows:
-
-Run run.bat
-
-The script:
-
-Switches the terminal to UTF-8 (code page 65001)
-
-Displays ASCII art banners
-
-Compiles all .java files
-
-Launches appletviewer with index.html
-
-⚠️ Note: Java Applets are deprecated in modern browsers. This project is intended for educational and legacy Java environments.
-
-7. Conclusion
-
-The Car Animation project demonstrates how mathematical transformations, multithreading, and object-oriented design can be combined to create a smooth and interactive graphical simulation. Through robust event handling and double buffering, the application maintains visual stability while offering real-time user control, making it a strong educational example of classic Java-based computer graphics.
+<!-- ===================== FOOTER ===================== -->
+<div align="center">
+  <img 
+    src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer"
+    width="100%"
+  />
+</div>
